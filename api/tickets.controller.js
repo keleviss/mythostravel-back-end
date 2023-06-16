@@ -1,28 +1,33 @@
 import TripsDAO from "../dao/tripsDAO.js"
 
-export default class TicketsCtrlController {
+import { generateTicketId } from "./helpers.js";
 
-    static async apiPostTicket(req, res, next) {
-        try {
-          const tripId = parseInt(req.body.tripId)
-          const tripfrom = req.body.tripfrom
-          const tripto = req.body.tripto
-          const date = req.body.date
-          const time = req.body.time
-          const seats = req.body.seats
-          
-          const tripResponse = await TripsDAO.addTicket(
-              tripId,
-              tripfrom,
-              tripto,
-              date,
-              time,
-              seats
-          )
-          res.json({status: "success"})
-        } catch (e) {
-          res.status(500).json({error: e.message})
-        }
+export default class TicketsController {
+  static async apiPostTicket(req, res, next) {
+    try {
+      const { tripId, category, passengerName, idNumber, bookingId } = req.body;
+
+      // Generate a random ticketId
+      const ticketId = generateTicketId(4);
+
+      // Create the ticket object
+      const ticketData = {
+        ticketId,
+        category,
+        passengerName,
+        tripId: parseInt(tripId),
+        bookingId,        
+        idNumber
+      };
+
+      // Log the created ticket data
+      console.log(ticketData);
+
+      const tripResponse = await TripsDAO.addTicket(ticketData);
+
+      res.json({ status: "success" });
+    } catch (e) {
+      res.status(500).json({ error: e.message });
     }
-
+  }
 }

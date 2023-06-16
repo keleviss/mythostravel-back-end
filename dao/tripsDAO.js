@@ -2,6 +2,8 @@ import mongodb from "mongodb"
 const ObjectId = mongodb.ObjectId
 
 let trips
+let bookings
+let tickets
 
 export default class TripsDAO {
     static async injectDB(conn) {
@@ -10,6 +12,8 @@ export default class TripsDAO {
       }
       try {
         trips = await conn.db("trips").collection("trips")
+        bookings = await conn.db("trips").collection("bookings")
+        tickets = await conn.db("trips").collection("tickets")
       } catch (e) {
         console.error(`Unable to establish collection handles in userDAO: ${e}`)
       }
@@ -84,12 +88,22 @@ export default class TripsDAO {
       }
     }
   
-    static async addBooking() {
-
+    static async addBooking(bookingData) {
+      try {
+        return await bookings.insertOne(bookingData);
+      } catch (e) {
+        console.error(`Unable to post Booking: ${e}`);
+        return { error: e };
+      }
     }
 
-    static async addTicket () {
-      
+    static async addTicket(ticketData) {
+      try {
+        return await tickets.insertOne(ticketData);
+      } catch (e) {
+        console.error(`Unable to post Booking: ${e}`);
+        return { error: e };
+      }
     }
 
   }
