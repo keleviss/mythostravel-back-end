@@ -1,4 +1,5 @@
 import TripsDAO from "../dao/tripsDAO.js";
+import TripsController from "./trips.controller.js";
 import { generateBookingId } from "./helpers.js";
 
 export default class BookingsController {
@@ -19,11 +20,10 @@ export default class BookingsController {
           passengers: parseInt(passengers), // Parse passengers as an integer
         };
 
-        // Log the created booking data
-        console.log(bookingData);
-
         // Add the booking to the database
         const booking = await TripsDAO.addBooking(bookingData);
+
+        const availableSeats = await TripsController.decrementAvailableSeats(tripId, passengers);
 
         res.status(201).json(bookingData); // Return the created booking object
       } catch (e) {

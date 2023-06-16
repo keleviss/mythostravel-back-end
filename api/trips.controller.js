@@ -9,7 +9,7 @@ export default class TripsController {
         const tripto = req.body.tripto
         const date = req.body.date
         const time = req.body.time
-        const seats = req.body.seats
+        const seats = parseInt(req.body.seats);
         
         const tripResponse = await TripsDAO.addTrip(
             tripId,
@@ -47,7 +47,7 @@ export default class TripsController {
         const tripto = req.body.tripto
         const date = req.body.date
         const time = req.body.time
-        const seats = req.body.seats
+        const seats = parseInt(req.body.seats);
   
         const tripResponse = await TripsDAO.updateTrip(
             tripId,
@@ -98,6 +98,27 @@ export default class TripsController {
       } catch (e) {
         console.log(`api, ${e}`)
         res.status(500).json({error: e.message})
+      }
+    }
+
+    static async decrementAvailableSeats(tripId, passengers) {
+      try {
+        const trip = await TripsDAO.getTrip(tripId);
+
+        if (!trip) {
+          throw new Error(`Trip with ID ${tripId} not found.`);
+        }
+
+        const seats = trip.seats - passengers;
+        if (seats < 0) {
+          throw new Error("Insufficient available seats for the trip.");
+        }
+  
+        await TripsDAO.updateAvailableSeats(tripId, seats);
+  
+        return seats;
+      } catch (error) {
+        throw error;
       }
     }
   

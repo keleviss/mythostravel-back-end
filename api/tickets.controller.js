@@ -20,9 +20,6 @@ export default class TicketsController {
         idNumber
       };
 
-      // Log the created ticket data
-      console.log(ticketData);
-
       // Add the ticket to the database
       const ticket = await TripsDAO.addTicket(ticketData);
 
