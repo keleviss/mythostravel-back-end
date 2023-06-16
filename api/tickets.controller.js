@@ -23,9 +23,10 @@ export default class TicketsController {
       // Log the created ticket data
       console.log(ticketData);
 
-      const tripResponse = await TripsDAO.addTicket(ticketData);
+      // Add the ticket to the database
+      const ticket = await TripsDAO.addTicket(ticketData);
 
-      res.json({ status: "success" });
+      res.status(201).json(ticket); // Return the created ticket object
     } catch (e) {
       res.status(500).json({ error: e.message });
     }

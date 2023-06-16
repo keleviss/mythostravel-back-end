@@ -21,10 +21,11 @@ export default class BookingsController {
 
         // Log the created booking data
         console.log(bookingData);
-  
-        const tripResponse = await TripsDAO.addBooking(bookingData);
-  
-        res.json({ status: "success" });
+
+        // Add the booking to the database
+        const booking = await TripsDAO.addBooking(bookingData);
+
+        res.status(201).json(bookingData); // Return the created booking object
       } catch (e) {
         res.status(500).json({ error: e.message });
       }
