@@ -1,6 +1,6 @@
 import express from "express"
 import TripsCtrl from "./trips.controller.js"
-import BookingsCtrlCtrl from "./bookings.controller.js"
+import BookingsCtrl from "./bookings.controller.js"
 import TicketsCtrl from "./tickets.controller.js"
 
 const router = express.Router()
@@ -12,6 +12,6 @@ router.route("/trip/:tripId")
       .put(TripsCtrl.apiUpdateTrip)
       .delete(TripsCtrl.apiDeleteTrip)
 router.route("/booking").post(BookingsCtrl.apiPostBooking);
-router.route("/ticket").post(TicketCtrl.apiPostTicket);
+router.route("/ticket").post(TicketsCtrl.apiPostTicket);
 
 export default router
