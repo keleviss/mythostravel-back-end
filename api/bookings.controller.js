@@ -2,7 +2,7 @@ import TripsDAO from "../dao/tripsDAO.js"
 
 export default class BookingsController {
 
-    static async apiPostTrip(req, res, next) {
+    static async apiPostBooking(req, res, next) {
         try {
           const tripId = parseInt(req.body.tripId)
           const tripfrom = req.body.tripfrom
@@ -11,7 +11,7 @@ export default class BookingsController {
           const time = req.body.time
           const seats = req.body.seats
           
-          const tripResponse = await TripsDAO.addTrip(
+          const tripResponse = await TripsDAO.addBooking(
               tripId,
               tripfrom,
               tripto,

@@ -84,4 +84,12 @@ export default class TripsDAO {
       }
     }
   
+    static async addBooking() {
+
+    }
+
+    static async addTicket () {
+      
+    }
+
   }
