@@ -2,6 +2,7 @@ import express from "express"
 import TripsCtrl from "./trips.controller.js"
 import BookingsCtrl from "./bookings.controller.js"
 import TicketsCtrl from "./tickets.controller.js"
+import BookingsController from "./bookings.controller.js"
 
 const router = express.Router()
 
@@ -11,7 +12,9 @@ router.route("/trip/:tripId")
       .get(TripsCtrl.apiGetTrip)
       .put(TripsCtrl.apiUpdateTrip)
       .delete(TripsCtrl.apiDeleteTrip)
-router.route("/booking").post(BookingsCtrl.apiPostBooking);
+router.route("/booking").post(BookingsCtrl.apiPostBooking)
+router.route("/bookings/:bookid").get(BookingsController.apiGetBooking);
 router.route("/ticket").post(TicketsCtrl.apiPostTicket);
+router.route("/tickets/:bookid").get(TicketsCtrl.apiGetTickets);
 
 export default router
