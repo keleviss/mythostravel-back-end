@@ -13,8 +13,8 @@ router.route("/trip/:tripId")
       .put(TripsCtrl.apiUpdateTrip)
       .delete(TripsCtrl.apiDeleteTrip)
 router.route("/booking").post(BookingsCtrl.apiPostBooking)
-router.route("/bookings/:bookid").get(BookingsController.apiGetBooking);
+router.route("/bookings/:bookid").get(BookingsCtrl.apiGetBooking);
 router.route("/ticket").post(TicketsCtrl.apiPostTicket);
-router.route("/tickets/:bookid").get(TicketsCtrl.apiGetTickets);
+// router.route("/tickets/:bookid").get(TicketsCtrl.apiGetTickets);
 
 export default router

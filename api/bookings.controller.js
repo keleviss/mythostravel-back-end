@@ -33,7 +33,7 @@ export default class BookingsController {
 
     static async apiGetBooking(req, res, next) {
       try {
-        let id = parseInt(req.params.bookId) || {}
+        let id = parseInt(req.params.bookid) || {}
         let booking = await TripsDAO.getBooking(id)
         if (!booking) {
           res.status(404).json({error: "Not found"})
