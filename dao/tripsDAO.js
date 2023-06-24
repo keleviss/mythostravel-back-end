@@ -123,4 +123,14 @@ export default class TripsDAO {
     }
   }
 
+  static async getBooking(bookId) {
+    try {
+      const booking = await bookings.findOne({ bookingId: bookid })
+      return booking
+    } catch (e) {
+      console.error(`Unable to get trip: ${e}`)
+      return { error: e }
+    }
+  }
+
 }

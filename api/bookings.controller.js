@@ -30,5 +30,20 @@ export default class BookingsController {
         res.status(500).json({ error: e.message });
       }
     }
+
+    static async apiGetBooking(req, res, next) {
+      try {
+        let id = parseInt(req.params.bookId) || {}
+        let booking = await TripsDAO.getBooking(id)
+        if (!booking) {
+          res.status(404).json({error: "Not found"})
+          return
+        }
+        res.json(booking)
+      } catch (e) {
+        console.log(`api, ${e}`)
+        res.status(500).json({error: e})
+      }
+    }
   }
   
