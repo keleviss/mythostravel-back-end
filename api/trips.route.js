@@ -15,6 +15,6 @@ router.route("/trip/:tripId")
 router.route("/booking").post(BookingsCtrl.apiPostBooking)
 router.route("/bookings/:bookid").get(BookingsCtrl.apiGetBooking);
 router.route("/ticket").post(TicketsCtrl.apiPostTicket);
-// router.route("/tickets/:bookid").get(TicketsCtrl.apiGetTickets);
+router.route("/tickets/:bookid").get(TicketsCtrl.apiGetTickets);
 
 export default router

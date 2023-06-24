@@ -28,4 +28,19 @@ export default class TicketsController {
       res.status(500).json({ error: e.message });
     }
   }
+
+  static async apiGetTickets(req, res, next) {
+    try {
+      let id = req.params.bookid || {}
+      let ticks = await TripsDAO.getTickets(id)
+      if (!ticks || ticks.length === 0) {
+        res.status(404).json({error: "Not found"})
+        return
+      }
+      res.json(ticks)
+    } catch (e) {
+      console.log(`api, ${e}`)
+      res.status(500).json({error: e})
+    }
+  }
 }

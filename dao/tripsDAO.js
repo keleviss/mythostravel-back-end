@@ -128,7 +128,17 @@ export default class TripsDAO {
       const booking = await bookings.findOne({ bookingId: bookId })
       return booking
     } catch (e) {
-      console.error(`Unable to get trip: ${e}`)
+      console.error(`Unable to get booking: ${e}`)
+      return { error: e }
+    }
+  }
+
+  static async getTickets(bookId) {
+    try {
+      const ticks = await tickets.find({ bookingId: bookId }).toArray()
+      return ticks
+    } catch (e) {
+      console.error(`Unable to get tickets: ${e}`)
       return { error: e }
     }
   }
