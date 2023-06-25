@@ -5,7 +5,7 @@ import { generateTicketId } from "./helpers.js";
 export default class TicketsController {
   static async apiPostTicket(req, res, next) {
     try {
-      const { tripId, category, passengerName, idNumber, bookingId } = req.body;
+      const { tripId, category, passengerName, idNumber, bookingId, price } = req.body;
 
       // Generate a random ticketId
       const ticketId = generateTicketId(4);
@@ -17,7 +17,8 @@ export default class TicketsController {
         passengerName,
         tripId: parseInt(tripId),
         bookingId,        
-        idNumber
+        idNumber,
+        price
       };
 
       // Add the ticket to the database
