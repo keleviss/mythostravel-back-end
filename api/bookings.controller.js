@@ -5,7 +5,7 @@ import { generateBookingId } from "./helpers.js";
 export default class BookingsController {
     static async apiPostBooking(req, res, next) {
       try {
-        const { tripId, email, name, phone, passengers } = req.body;
+        const { tripId, email, name, phone, passengers, fullPrice } = req.body;
 
         // Generate a random bookingId
         const bookingId = generateBookingId(4);
@@ -18,6 +18,7 @@ export default class BookingsController {
           phone,
           tripId: parseInt(tripId), // Parse tripId as an integer
           passengers: parseInt(passengers), // Parse passengers as an integer
+          fullPrice
         };
 
         // Add the booking to the database
