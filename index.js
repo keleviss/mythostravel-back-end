@@ -1,7 +1,8 @@
 import app from "./server.js"
 import mongodb from "mongodb"
 import TripsDAO from "./dao/tripsDAO.js"
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 const MongoClient = mongodb.MongoClient
 
