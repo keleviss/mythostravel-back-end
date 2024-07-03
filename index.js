@@ -1,10 +1,11 @@
 import app from "./server.js"
 import mongodb from "mongodb"
 import TripsDAO from "./dao/tripsDAO.js"
+require('dotenv').config();
 
 const MongoClient = mongodb.MongoClient
 
-const uri = `mongodb+srv://viss:fiskel99@cluster8658.bsbuiyp.mongodb.net/?retryWrites=true&w=majority`
+const uri = process.env.MONGODB_URI;
 
 const port = 3000
 
