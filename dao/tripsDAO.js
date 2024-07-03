@@ -69,8 +69,7 @@ export default class TripsDAO {
   
   static async deleteTrip(tripId) {
     try {
-      const objId = new mongodb.ObjectId(tripId)
-      const deleteResponse = await trips.deleteOne({ _id: objId })
+      const deleteResponse = await trips.deleteOne({ tripId: tripId })
       return deleteResponse
     } catch (e) {
       console.error(`Unable to delete trip: ${e}`)

@@ -79,6 +79,13 @@ export default class TripsController {
       try {
         const tripId = parseInt(req.params.tripId)
         const tripResponse = await TripsDAO.deleteTrip(tripId)
+
+        if (tripResponse.deletedCount === 0) {
+          console.log("Trip not found");  // Add logging
+          res.status(404).json({ error: 'Trip not found' });
+          return;
+      }
+
         res.json({status: "success"})
       } catch (e) {
         res.status(500).json({error: e.message})
