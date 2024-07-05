@@ -18,8 +18,8 @@ export default class TripsDAO {
       console.error(`Unable to establish collection handles in userDAO: ${e}`)
     }
   }
-  
-  static async addTrip(tripId, tripfrom, tripto ,date, time, seats) {
+
+  static async addTrip(tripId, tripfrom, tripto, date, time, seats) {
     try {
       const tripDoc = {
         tripId: tripId,
@@ -29,14 +29,14 @@ export default class TripsDAO {
         time: time,
         seats: seats
       }
-  
-    return await trips.insertOne(tripDoc)
+
+      return await trips.insertOne(tripDoc)
     } catch (e) {
       console.error(`Unable to post Trip: ${e}`)
       return { error: e }
     }
   }
-  
+
   static async getTrip(id) {
     try {
       const trip = await trips.findOne({ tripId: id })
@@ -46,37 +46,41 @@ export default class TripsDAO {
       return { error: e }
     }
   }
-  
-  static async updateTrip(tripId, tripfrom, tripto ,date, time, seats) {
+
+  static async updateTrip(tripId, tripfrom, tripto, date, time, seats) {
     try {
       const objId = new mongodb.ObjectId(tripId)
       const updateResponse = await trips.updateOne(
         { _id: objId },
-        { $set: { tripId: tripId,
-          tripfrom: tripfrom,
-          tripto: tripto,
-          date: date,
-          time: time,
-          seats: seats } }
+        {
+          $set: {
+            tripId: tripId,
+            tripfrom: tripfrom,
+            tripto: tripto,
+            date: date,
+            time: time,
+            seats: seats
+          }
+        }
       )
-  
+
       return updateResponse;
     } catch (e) {
       console.error(`Unable to update trip: ${e}`)
       return { error: e }
     }
   }
-  
+
   static async deleteTrip(tripId) {
     try {
       const deleteResponse = await trips.deleteOne({ tripId: tripId })
       return deleteResponse
     } catch (e) {
       console.error(`Unable to delete trip: ${e}`)
-      return { error: e } 
+      return { error: e }
     }
   }
-  
+
   static async getTripsByLocationAndDate(from, to, date) {
     try {
       const cursor = await trips.find({ tripfrom: from, tripto: to, date: date })
@@ -86,7 +90,31 @@ export default class TripsDAO {
       return { error: e }
     }
   }
-  
+
+  // NEW! Get all Trips
+  static async getAllTrips() {
+    try {
+
+      const documents = await trips.find({}).toArray();
+      return documents;
+
+    } catch (e) {
+      console.error(`Unable to get all trips: ${e}`)
+      return { error: e }
+    }
+  }
+
+  // NEW! Delete all trips
+  static async deleteAllTrips() {
+    try {
+      const deleteResponse = await trips.deleteMany({})
+      return deleteResponse
+    } catch (e) {
+      console.error(`Unable to delete all trips: ${e}`)
+      return { error: e }
+    }
+  }
+
   static async addBooking(bookingData) {
     try {
       return await bookings.insertOne(bookingData);

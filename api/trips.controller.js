@@ -108,6 +108,40 @@ export default class TripsController {
       }
     }
 
+    // NEW! Get all trips
+    static async apiGetAllTrips (req, res, next) {
+      try {
+        
+        const trips = await TripsDAO.getAllTrips()
+
+        if (!trips) {
+          res.status(404).json({error: "No trips found"})
+          return
+        }
+        res.json(trips)
+      } catch (e) {
+        console.log(`api, ${e}`)
+        res.status(500).json({error: e.message})
+      }
+    }
+
+    // NEW! Delete all trips
+    static async apiDeleteAllTrips (req, res, next) {
+      try {
+        
+        const trips = await TripsDAO.deleteAllTrips()
+
+        if (!trips) {
+          res.status(404).json({error: "Trips could not be deleted"})
+          return
+        }
+        res.json(trips)
+      } catch (e) {
+        console.log(`api, ${e}`)
+        res.status(500).json({error: e.message})
+      }
+    }
+
     static async decrementAvailableSeats(tripId, passengers) {
       try {
         const trip = await TripsDAO.getTrip(tripId);
