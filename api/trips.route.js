@@ -8,7 +8,7 @@ const router = express.Router()
 
 router.route("/trips/:from&:to&:date").get(TripsCtrl.apiGetTripsByLocationAndDate);
 
-// NEW! Get/Delete all trips
+// NEW! Bulk actions - Get/Delete all trips
 router.route("/trips/all")
       .get(TripsCtrl.apiGetAllTrips)
       .delete(TripsCtrl.apiDeleteAllTrips);

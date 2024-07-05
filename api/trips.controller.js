@@ -9,7 +9,9 @@ export default class TripsController {
         const tripto = req.body.tripto
         const date = req.body.date
         const time = req.body.time
-        const seats = parseInt(req.body.seats);
+        const seats = parseInt(req.body.seats)
+        const standard = parseInt(req.body.standard)
+        const student = parseInt(req.body.student)
         
         const tripResponse = await TripsDAO.addTrip(
             tripId,
@@ -17,7 +19,9 @@ export default class TripsController {
             tripto,
             date,
             time,
-            seats
+            seats,
+            standard,
+            student
         )
         res.json({status: "success"})
       } catch (e) {
@@ -48,6 +52,8 @@ export default class TripsController {
         const date = req.body.date
         const time = req.body.time
         const seats = parseInt(req.body.seats);
+        const standard = parseInt(req.body.standard)
+        const student = parseInt(req.body.student)
   
         const tripResponse = await TripsDAO.updateTrip(
             tripId,
@@ -55,7 +61,9 @@ export default class TripsController {
             tripto,
             date,
             time,
-            seats
+            seats,
+            standard,
+            student
         )
   
         var { error } = tripResponse
@@ -132,7 +140,7 @@ export default class TripsController {
         const trips = await TripsDAO.deleteAllTrips()
 
         if (!trips) {
-          res.status(404).json({error: "Trips could not be deleted"})
+          res.status(404).json({error: "not found"})
           return
         }
         res.json(trips)
