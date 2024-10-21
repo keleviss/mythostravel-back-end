@@ -7,16 +7,10 @@ dotenv.config();
 const MongoClient = mongodb.MongoClient
 
 const uri = process.env.MONGODB_URI;
+const options = { maxPoolSize: 50, wtimeoutMS: 2500, useNewUrlParser: true };
+const port = process.env.PORT || 3000;
 
-const port = 3000
-
-MongoClient.connect(
-  uri,
-  {
-    maxPoolSize: 50,
-    wtimeoutMS: 2500,
-    useNewUrlParser: true
-  })
+MongoClient.connect(uri, options)
   .catch(err => {
     console.error(err.stack)
     process.exit(1)
